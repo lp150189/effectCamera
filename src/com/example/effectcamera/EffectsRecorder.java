@@ -120,7 +120,7 @@ public class EffectsRecorder {
 
     private boolean mLogVerbose = Log.isLoggable(TAG, Log.VERBOSE);
     private static final String TAG = "effectsrecorder";
-
+    Filter goofyFilter;
     /** Determine if a given effect is supported at runtime
      * Some effects require libraries not available on all devices
      */
@@ -489,16 +489,28 @@ public class EffectsRecorder {
         switch (mCurrentEffect) {
             case EFFECT_GOOFY_FACE:
                 tryEnableVideoStabilization(true);
-                Filter goofyFilter = mRunner.getGraph().getFilter("goofyrenderer");
+                goofyFilter = mRunner.getGraph().getFilter("goofyrenderer");
                 goofyFilter.setInputValue("currentEffect",
                                           ((Integer)mEffectParameter).intValue());
                 break;
             case EFFECT_BACKDROPPER:
-                tryEnableVideoStabilization(false);
-                Filter backgroundSrc = mRunner.getGraph().getFilter("background");
-                backgroundSrc.setInputValue("sourceUrl",
-                                            (String)mEffectParameter);
+//                tryEnableVideoStabilization(false);
+//                Filter backgroundSrc = mRunner.getGraph().getFilter("background");
+//                backgroundSrc.setInputValue("sourceUrl",
+//                                            (String)mEffectParameter);
+//                break;
+            	tryEnableVideoStabilization(true);
+                goofyFilter = mRunner.getGraph().getFilter("goofyrenderer");
+                if(goofyFilter != null){
+                	goofyFilter.setInputValue("currentEffect",
+                                          EffectsRecorder.EFFECT_GF_BIG_MOUTH);
+                }
+                else
+                {
+                	Log.e("Huy", "im a bitchh");
+                }
                 break;
+	            
             default:
                 break;
         }

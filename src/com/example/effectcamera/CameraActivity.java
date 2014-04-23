@@ -9,6 +9,7 @@ import java.util.Date;
 
 import javax.security.auth.PrivateCredentialPermission;
 
+
 import android.app.Activity;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -146,8 +147,9 @@ MediaRecorder.OnErrorListener, MediaRecorder.OnInfoListener{
              mPreview.getHeight());
      
      //leaving null for right now
-     mEffectsRecorder.setEffect(2, null);
-     
+     mEffectsRecorder.setEffect(2, EffectsRecorder.EFFECT_GF_BIG_MOUTH);
+     mEffectsRecorder.setProfile(CamcorderProfile.get( CamcorderProfile.QUALITY_720P) );
+     mEffectsRecorder.startPreview();
      
 }
     
@@ -249,11 +251,6 @@ MediaRecorder.OnErrorListener, MediaRecorder.OnInfoListener{
     }
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
-
-    /** Create a file Uri for saving an image or video */
-    private static Uri getOutputMediaFileUri(int type){
-          return Uri.fromFile(getOutputMediaFile(type));
-    }
 
     /** Create a File for saving an image or video */
     private static File getOutputMediaFile(int type){
